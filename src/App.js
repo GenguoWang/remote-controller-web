@@ -29,10 +29,17 @@ class App extends Component {
   }
   onChromeOpenPage = ()=> {
     console.log('open:', this.state.url)
-    pushbullet.sendText(`CHROME_OPEN_PAGE ${this.state.url}`).then(console.log).catch(console.error)
+    if (!this.state.url) {
+      return
+    }
+    const url = this.state.url.includes('//') ? this.state.url : 'http://' + this.state.url
+    pushbullet.sendText(`CHROME_NEW_PAGE ${url}`).then(console.log).catch(console.error)
   }
   onTapKey = ()=> {
     console.log('tap key:', this.state.key)
+    if (!this.state.key) {
+      return
+    }
     pushbullet.sendText(`TAP_KEY ${this.state.key}`).then(console.log).catch(console.error)
     const newKeys = this.state.commonKeys.includes(this.state.key) ?
       this.state.commonKeys : [this.state.key, ...this.state.commonKeys.slice(0,5)]
@@ -41,6 +48,9 @@ class App extends Component {
       key: '',
       commonKeys: newKeys,
     })
+  }
+  sendKey(key) {
+    pushbullet.sendText(`TAP_KEY ${key}`).then(console.log).catch(console.error)
   }
   onInput = (e)=> {
     this.setState({
@@ -84,7 +94,7 @@ class App extends Component {
         <div>
           {
             this.state.commonKeys.map(item=>(
-              <button className={'btn btn-secondary'} key={item}>{item}</button>
+              <button className={'btn btn-secondary'} key={item} onClick={()=>this.sendKey(item)}>{item}</button>
             ))
           }
         </div>
