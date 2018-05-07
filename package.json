@@ -1,0 +1,20 @@
+{
+  "name": "remote-controller-web",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://genguowang.github.io/controller/",
+  "devDependencies": {
+    "react-scripts": "1.1.4"
+  },
+  "dependencies": {
+    "axios": "0.18.0",
+    "react": "16.3.2",
+    "react-dom": "16.3.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
